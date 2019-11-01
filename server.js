@@ -1,10 +1,17 @@
 const express = require('express'); // importing a CommonJS module
-const helmet = require('helmet');
 
+const projectRouter = require('./data/routers/projectRouter');
 
 const server = express();
+
+//middleware
+server.use(express.json());
+
+server.use('/api/projects', projectRouter);
+
 
 server.get('/', (req, res) => {
   res.status(200).json({message: 'Here is my Sprint.'})
 })
+
 module.exports = server;
