@@ -41,6 +41,12 @@ router.put('/:id', validateProject, validateProjectId, (req, res) => {
     })
 })
 
+router.delete('/:id', validateProjectId, (req, res) => {
+  projectDb.remove(req.project.id)
+    .then(response => res.sendStatus(204))
+    .catch(err=> res.status(500).json({error: "The project with the id could not be retrieved."}))
+})
+
 function validateProject(req, res, next) {
   const validProject = req.body;
   if(!validProject) {
