@@ -18,7 +18,34 @@ router.get('/', (req, res) => {
 
 router.get('/:id', validateProjectId,(req,res) => {
   res.status(200).json(req.project)
+});
+
+// router.get('/id/projects', validateProjectId, (req, res) => {
+//   projectDb.get
+// })
+
+router.post('/', validateProject, (req, res) => {
+  projectDb.insert(req.body)
+    .then(newProject => {
+      res.status(201).json(newProject)
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error adding the project."})
+  }) 
 })
+
+function validateProject(req, res, next) {
+  const validProject = req.body;
+  if(!validProject) {
+    return res.status(400).json({message: "No project data provided." }) 
+  } else if (!validProject.description) {
+      return res.status(400).json({message: "Missing project description."})
+  } else if (!validProject.name) {
+    return res.status(400).json({message: "Missing project name."})
+  }
+
+  next();
+}
 
 function validateProjectId(req, res, next) {
   const projectId = req.params.id;
