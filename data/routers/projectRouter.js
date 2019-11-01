@@ -20,10 +20,6 @@ router.get('/:id', validateProjectId,(req,res) => {
   res.status(200).json(req.project)
 });
 
-// router.get('/id/projects', validateProjectId, (req, res) => {
-//   projectDb.get
-// })
-
 router.post('/', validateProject, (req, res) => {
   projectDb.insert(req.body)
     .then(newProject => {
@@ -32,6 +28,17 @@ router.post('/', validateProject, (req, res) => {
     .catch(err => {
       res.status(500).json({ message: "Error adding the project."})
   }) 
+});
+
+router.put('/:id', validateProject, validateProjectId, (req, res) => {
+  const id = req.params.id
+  projectDb.update(id, req.body)
+    .then(updatedProject => {
+      res.status(200).json(updatedProject)
+    })
+    .catch(err => {
+      res.status(500).json({message: "Error updating the project."})
+    })
 })
 
 function validateProject(req, res, next) {
