@@ -10,7 +10,7 @@ function validatedProjectId(req, res, next) {
   projectDb.get(projectId)
     .then(project => {
        if (!project) {
-         return res.status(404).json({message: `project id ${projectId} not found.`})
+         return res.status(404).json({message: `Project id ${projectId} not found.`})
        } else {
          req.project = project;
          next()

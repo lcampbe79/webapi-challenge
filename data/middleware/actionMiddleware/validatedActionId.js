@@ -5,7 +5,7 @@ const actionDb = require('../../helpers/actionModel');
 function validatedActionId(req, res, next) {
   const actionId = req.params.id;
   if(!actionId) {
-    return res.status(404).json({message: `No action id`})
+    return res.status(404).json({message: `No action with this id was found`})
   }  
   actionDb.get(actionId)
     .then(action => {

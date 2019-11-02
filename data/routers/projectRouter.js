@@ -48,18 +48,4 @@ router.delete('/:id', validateProjectId, (req, res) => {
     .catch(err=> res.status(500).json({error: "The project with the id could not be retrieved."}))
 })
 
-// function validateProject(req, res, next) {
-//   const validProject = req.body;
-//   if(!validProject) {
-//     return res.status(400).json({message: "No project data provided." }) 
-//   } else if (!validProject.description) {
-//       return res.status(400).json({message: "Missing project description."})
-//   } else if (!validProject.name) {
-//     return res.status(400).json({message: "Missing project name."})
-//   }
-
-//   next();
-// }
-
-
 module.exports = router;
